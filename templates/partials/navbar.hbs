@@ -1,0 +1,51 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://localhost:3000" class="navbar-brand">Link Traffic</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {{#if usedCodes}}
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Your Codes
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {{#each usedCodes }}
+                        <li><a href="http://localhost:3000/linkresult/{{this.code}}?pin={{this.pin}}">{{this.code}}</a></li>
+                        {{/each}}
+                    </ul>
+                </li>
+                {{/if}}
+                <li>
+                    <a href="http://localhost:3000/terms">Terms of Service</a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">API
+                        Service
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://localhost:3000/api/key">Create API
+                                key</a></li>
+                        <li><a href="http://localhost:3000/api/doc">Documentation</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">About us
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://localhost:3000/privacy">Privacy Policy</a></li>
+                        <li>
+                            <a href="http://localhost:3000/contact">Contact Us</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>

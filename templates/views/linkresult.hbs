@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/icons/link.png">
+        <link rel="stylesheet" href="/css/home.css">
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+        <title>Link Traffic</title>
+    </head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+        text-align: left;
+        padding: 8px;
+        }
+        
+        th {
+        background-color: #617e9e;
+        color: white;
+        }
+        #connections tr:nth-child(even){background-color: #f2f2f2}
+
+        button {
+            transition-duration: 0.4s;
+        }
+
+        button {
+            border-radius: 5px;
+            background-color: #617e9e;
+            color: #f2f2f2;
+            border: 2px solid #617e9e; 
+        }
+        button:hover {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            color: #617e9e;
+            border: 2px solid #617e9e; 
+        }
+      
+
+        
+    </style>
+   
+    <body>
+        {{>navbar}}
+        <div style="padding:15px 15px ;font-size:30px;margin:80px 20% 0px
+            20%;display:flex;justify-content:center">
+            <h1 style="margin:0 auto">Welcome back, below you can see all the
+                information about your
+                Link logger</h1>
+            <br>
+        </div>
+        <div style="padding:15px 15px
+            10px;font-size:20px;margin-right:20%;margin-left:
+            20%;">
+            <table >
+                <tr>
+                    <td>Tracking code</td>
+                    <td>{{code}}</td>
+                    <td><button onclick="copy({{code}})"></a>Copy</td>
+                </tr>
+                <tr>
+                    <td>Actual link</td>
+                    <td><a
+                            href="{{link}}" target="_blank">{{link}}
+                        </a></td>
+                    <td><button onclick="copy('{{link}}')"></a>Copy</td>
+                </tr>
+                <tr>
+                    <td>Link to share</td>
+                    <td><a href={{linkToShare}} target="_blank">{{linkToShare}}</a></td>
+                    <td><button onclick="copy('{{linkToShare}}')">Copy</td>
+                    </tr>
+                </table>
+                <br>
+                <h2>Analytics </h2>
+            </div>
+            <div style="padding:15px 15px 200px; font-size:20px;margin:0px ;">
+                <div class="row">
+                    <div class="col-xs-6">
+                        {{#if noconnection}}
+                            <h1>For the moment, no one has clicked on your link</h1>
+                        {{else}}
+                        <h1>Connections : </h1>
+                        <table id="connections">
+                            <thead>
+                                <tr>
+                                    <th>Ip address</th>
+                                    <th>Date</th>
+                                    <th>Location</th>
+                                    <th>Browser</th>
+                                    <th>Operating System</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            {{#each connections}}
+                            <tr>
+                                <td>{{this.ipaddress}}</td>
+                                <td>{{this.date}}</td>
+                                <td>{{this.location}}</td>
+                                <td>{{this.operating_system}}</td>
+                                <td>{{this.browser}}, version {{this.browser_version}} </td>
+                                <td><img src="/icons/{{this.browser}}.png" style="height: 50px;width:50x"></td>                            </tr>
+                            {{/each}}
+                        </table>
+                        {{/if}}
+                    </div>
+                    <div class="col-xs-6">
+                        <canvas id="myChart" style="height: 20;width:20;"></canvas>
+                        <canvas id="myCamembert" style="height: 20;width:20;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
+
+    <script>
+    function copy(text){
+        navigator.clipboard.writeText(text);
+    }
+    dates = []
+    clicks = []
+    browsers = []
+    browsers_use = []
+    let date = ""
+    {{#each distinct_dates}}
+        date = "{{this}}"
+        dates.push(date)
+    {{/each}}
+    {{#each clicks_per_date}}
+        click = "{{this}}"
+        clicks.push(click)
+    {{/each}}
+    {{#each distinct_browsers}}
+        browser = "{{this}}"
+        browsers.push(browser)
+    {{/each}}
+    {{#each user_per_browser}}
+        browser_use = "{{this}}"
+        console.log(browser_use)
+        browsers_use.push(browser_use)
+    {{/each}}
+    console.log(browsers)
+    console.log(browsers_use)
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Number of Clicks',
+                data: clicks,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    // second round chart using chart js
+    var camembert = document.getElementById('myCamembert').getContext('2d');
+    var myChart2 = new Chart(camembert, {
+        type: 'pie',
+        data: {
+            labels: browsers,
+            datasets: [{
+                label: 'Number of users using this browser',
+                data: browsers_use,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>

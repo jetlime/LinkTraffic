@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Traffic</title>
+    <link rel="icon" href="/icons/link.png">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<script>
+    function loadGif() {
+        document.getElementById("loadingImage").style.display = ""
+    }
+</script>
+<style>
+    .submitbutton {
+        transition-duration: 0.4s;
+    }
+
+    .submitbutton:hover {
+        border-radius: 5px;
+        background-color: #617e9e;
+        color: #f2f2f2;
+        border: 1px solid #617e9e;
+    }
+
+    .submitbutton {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        color: #617e9e;
+        border: 1px solid #617e9e;
+    }
+
+    .inputfield {
+        width: 65%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 2px solid #617e9e;
+    }
+
+    .alert {
+        padding: 20px;
+        color: white;
+        margin-bottom: 15px;
+        margin-top: 15px;
+        margin-right: 15%;
+        margin-left: 15%;
+        opacity: 1;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .closebtn:hover {
+        color: black;
+    }
+
+    #title {
+        color: #617e9e;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 175px;
+        font-weight: bold;
+        letter-spacing: -1px;
+        line-height: 1;
+        text-align: center;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    #subtitle {
+        color: #111;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 30px;
+        font-weight: 300;
+        line-height: 32px;
+        margin: 0 0 20px;
+        text-align: center;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
+
+<body>
+    {{>navbar}}
+    <div style="padding:15px 15px
+            10px;font-size:30px;margin-top:10px;margin-right:15px;
+            margin-left:15px">
+        <img src="/icons/loading.gif" style="display:none;" id="loadingImage">
+        {{#if failure}}
+        <div style="background-color: #f44336;" class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{message}}
+        </div>
+        {{/if}}
+        <div style="padding:15px 15px
+                10px;font-size:40px;margin-top:30px;margin-right:15px;
+                margin-left:15px">
+            <h1 id="title">Link Traffic.</h1>
+            <h2 id="subtitle">The website which let's you see information
+                about the links you share</h2>
+        </div>
+        <div class='container'>
+            <div class="row">
+                <div class="col-xs-6">
+                    <h1>Create and Track URL's</h1>
+                    <p>You wish to obtain information on the link you share
+                        ? Just put the link you wish to share below.
+                    <p>
+                </div>
+                <div class="col-xs-6">
+                    <h1>Already created a Link ?</h1>
+                    <p>In order to visualise the data of your shared
+                        link,
+                        Put your tracking code below.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <form action="/trackinglink" method="POST" onsubmit="loadGif()">
+                        <input id="trlink" name="trlink" type="text" placeholder="Enter a valid URL" class="inputfield"
+                            required>
+                        <input id="pin" name="pin" type="password" class="inputfield"
+                            placeholder="Choose a 4 number PIN to access your analytics" required>
+                        <input class="submitbutton" type="submit">
+                    </form>
+                </div>
+                <div class="col-xs-6">
+                    <form action="/trackingcode" method="POST" onsubmit="loadGif()">
+                        <input id="trcode" name="trcode" type="text" class="inputfield"
+                            placeholder="Enter a valid tracking code" required>
+                        <input id="pin" name="pin" type="password" class="inputfield"
+                            placeholder="Input your 4 number PIN to access your analytics" required>
+                        <input class="submitbutton" type="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

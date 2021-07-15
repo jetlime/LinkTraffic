@@ -1,0 +1,12 @@
+a:visited {color:black;} /* Visited link    */
+a:hover {color:#0A62D0;}   /* Mouse over link */
+a:active {color:#0A62D0;} 
+
+#apititle {
+    color: #617e9e; 
+    font-family: 'Open Sans', sans-serif;
+    font-size: 50px; 
+    font-weight: 300; 
+    line-height: 32px; 
+    text-align: center; 
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/icons/link.png">
+        <link rel="stylesheet" href="/css/home.css">
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+        <script
+            src="/js/linkresult.js"></script>
+        <title>IP Logger</title>
+    </head>
+    <style>
+        body {
+            position: relative;
+        }
+        ul.nav-pills {
+            top: 20px;
+            position: fixed;
+        }
+        div.col-sm-9 div {
+            height: 300px;
+            font-size: 28px;
+        }
+        #section1 {color: #22222; border-top: 1px solid #1E88E5; border-radius : 4px; padding : 20px; padding-top : 40px}
+        #section2 {color: #22222; border-top: 1px solid #1E88E5; border-radius : 4px; padding : 20px;  padding-top : 40px}
+        #section3 {color: #22222; border-top: 1px solid #1E88E5; border-radius : 4px; padding : 20px;  padding-top : 40px}
+  
+        @media screen and (max-width: 810px) {
+            #section1, #section2, #section3, #section41, #section42  {
+            margin-left: 150px;
+            }
+        }
+
+    </style>
+    <body>
+        {{>navbar}}
+        <div style="padding:15px 15px 200px;font-size:30px;margin-top:80px;">
+            <h1 id="apititle">API Documentation </h1>
+            <br>
+            <body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+                <div class="container">
+                    <div class="row">
+                        <nav class="col-sm-3" id="myScrollspy">
+                            <ul class="nav nav-pills nav-stacked">
+                                <div class="row">
+                                   <br>
+                                   <br>
+                                   <br>
+                                   <br>
+                                </div>
+                                <li class="active"><a href="#section1">Getting Started</a></li>
+                                <li><a href="#section2">Tracking Code</a></li>
+                                <li><a href="#section3">Connections</a></li>
+                            </ul>
+                        </nav>
+                        <div class="col-sm-9">
+                            <div id="section1">
+                                <h1>Getting Started</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam consectetur sit deserunt assumenda quisquam, est nemo ratione eveniet aspernatur delectus inventore provident magnam porro ad sint sunt? Dolorem, corrupti dignissimos?</p>
+                            </div>
+                            <div id="section2">
+                                <h1>Tracking Code Creation</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium architecto tempore culpa nisi suscipit, earum nostrum assumenda libero ipsum sequi labore. Magni officia vel amet, est illum assumenda porro quibusdam?</p>
+                            </div>
+                            <div id="section3">
+                                <h1>Connections</h1>
+                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, aperiam sequi reiciendis voluptas beatae nihil sunt incidunt dignissimos quod, atque a libero maiores animi fuga! Perspiciatis praesentium laborum deleniti ducimus!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
