@@ -16,9 +16,9 @@ Run the following commands in the root folder of the project
 * npm rebuild
 * touch .env
 * add the folowing environment variables: 
-    - DBKEY=<MongoDB access URI>
-    - PORT=<Port the website shall be accessible>
-    - MAILPASS=<Password of the Mail adress box>
+    - DBKEY=< MongoDB access URI>
+    - PORT=< Port the website shall be accessible>
+    - MAILPASS=< Password of the Mail adress box>
 
 ---------------------------------
 
