@@ -1,5 +1,6 @@
 // external libraries 
 const express = require("express");
+require('dotenv').config()
 const methodOverride = require("method-override")
 const cookieParser = require('cookie-parser')
 const NodeCache = require("node-cache");
@@ -26,7 +27,7 @@ const port = process.env.PORT || 3000;
 // init connection params to MongoDB database 
 const Mongoose = require("mongoose");
 const { DH_CHECK_P_NOT_PRIME } = require("constants");
-const uri = "key" // insert key;
+const uri = process.env.DBKEY
 Mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -197,6 +198,7 @@ app.post("/trackinglink", async (req, res) => {
                         code: code,
                         pin: pin
                     })
+                    console.log(newLink)
                     newLink.save()
                         .then((result) => {
                             console.log(result)

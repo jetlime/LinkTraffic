@@ -7,7 +7,7 @@ async function sendMail(email,emailMessage, emailMessageAdmin) {
         secure : false,
         auth: {
           user: 'linktrafficlu@gmail.com',
-          pass: "null" // insert password
+          pass: process.env.MAILPASS 
         }
       });
     
