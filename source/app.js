@@ -629,6 +629,7 @@ async function createCookie(ip) {
     console.log(newCookie)
     return newCookie.save()
         .then((result) => {
+            console.log(result)
             return result
         }).catch((err) => {
             return err
