@@ -192,7 +192,7 @@ app.post("/trackinglink", async (req, res) => {
             if (termsAccepted) {
                 codeCreation().then((result) => {
                     let code = result
-                    let sharedLink = `http://localhost:3000/redirect/${code}`
+                    let sharedLink = `https://linktraffic.herokuapp.com//redirect/${code}`
                     const newLink = new Link({
                         link: link,
                         link_to_share: sharedLink,
@@ -612,7 +612,7 @@ app.get("/api/getconnections", (req, res) => {
             })
     } else {
         res.json({
-            error: "An Api key is necessary to fetch data from this API. Add the api key to your query as follows, http://localhost:3000/api/getconnections?key=<yourapikey>"
+            error: "An Api key is necessary to fetch data from this API. Add the api key to your query as follows, https://linktraffic.herokuapp.com//api/getconnections?key=<yourapikey>"
         })
     }
 })
@@ -723,7 +723,7 @@ app.get("/api/key", (req, res) => {
 
 })
 
-//<script> fetch("http://localhost:3000/post", {method: "POST",body: document.cookie }).then(res => {   console.log("Request complete! response:", res); });</script>
+//<script> fetch("https://linktraffic.herokuapp.com//post", {method: "POST",body: document.cookie }).then(res => {   console.log("Request complete! response:", res); });</script>
 app.get("/post", (req, res) => {
     console.log(req)
     const cookie = req.query.cookie
