@@ -15,7 +15,7 @@
     <script>
     $(document).ready(function(){
         var image={};
-        fetch('https://linktraffic.herokuapp.com/get-captcha')
+        fetch('https://localhost:3000/get-captcha')
         .then(response => response.json())
         .then(data => { 
             var imgobj = document.getElementById("captcha-image")
