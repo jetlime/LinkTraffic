@@ -281,7 +281,7 @@ app.get("/", (req, res) => {
         let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
         console.log(ip)
         createCookie(ip).then((result) => {
-            console.log(result)
+            console.log(Object.keys(result))
             res.cookie("user_session", result.id)
             res.render("home", {
                 failure: failure,
