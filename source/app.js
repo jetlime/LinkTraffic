@@ -22,8 +22,8 @@ const Cookie = require('./cookie')
 const sendMail = require("./mail");
 
 // Set the server's port to 3000
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+const port = process.env.PORT || 5000;
+
 
 // init connection params to MongoDB database 
 const Mongoose = require("mongoose");
