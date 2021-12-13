@@ -626,6 +626,7 @@ async function createCookie(ip) {
         ipaddress: ip,
         acceptedterm: false
     })
+    console.log("New Cookie:")
     console.log(newCookie)
     return newCookie.save()
         .then((result) => {
