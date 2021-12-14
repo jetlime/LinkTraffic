@@ -72,22 +72,14 @@ async function termsChecker(cookie) {
 
 async function usedCodes(cookie, renew) {
     if (renew) {
-        return Cookie.findOne({ _id: cookie }).then((result) => {
-            myCache.set('usedCodes', result.usedcodes)
-            return result.used_codes
-        }).catch((err) => {
-            return null
-        })
+        myCache.set('usedCodes', result.usedcodes)
+        return result.used_codes
     } else {
         if (myCache.get('usedCodes') != null) {
             return myCache.get('usedCodes')
         } else {
-            return Cookie.findOne({ _id: cookie }).then((result) => {
-                myCache.set('usedCodes', result.used_codes)
-                return result.used_codes
-            }).catch((err) => {
-                return null
-            })
+            myCache.set('usedCodes', result.used_codes)
+            return result.used_codes
         }
     }
 }
@@ -282,7 +274,7 @@ app.get("/", (req, res) => {
         console.log(ip)
         createCookie(ip).then((result) => {
             console.log(result)
-            res.cookie("user_session", result.id)
+            res.cookie("user_session", result)
             res.render("home", {
                 failure: failure,
                 message: error,
@@ -628,13 +620,7 @@ async function createCookie(ip) {
     })
     console.log("New Cookie:")
     console.log(newCookie)
-    return newCookie.save()
-        .then((result) => {
-            console.log(result)
-            return result
-        }).catch((err) => {
-            return err
-        })
+    return newCookie
 }
 
 async function userAcceptedTerms(cookie_id) {
