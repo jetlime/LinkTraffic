@@ -609,18 +609,6 @@ async function createCookie(ip) {
     return newCookie
 }
 
-async function userAcceptedTerms(cookie_id) {
-    return Cookie.findOne({
-        _id: cookie_id
-    }).exec()
-        .then((result) => {
-            return result.acceptedterm
-        })
-        .catch((err) => {
-            return err
-        })
-}
-
 app.post("/terms", (req, res) => {
     let useracceptsTerm = false
     if (req.body.acceptTerm == 0) {
@@ -630,44 +618,28 @@ app.post("/terms", (req, res) => {
     } else {
         res.status(400)
     }
-
-    const cookie_id = req.cookies.user_session
-    Cookie.findOneAndUpdate({
-        _id: cookie_id
-    }, {
-        acceptedterm: useracceptsTerm
-    }, {
-        new: true
-    }).exec()
-        .then((result) => {
-            if (result.acceptedterm) {
-                res.redirect("/terms?m=You succesfully accepted the terms of condition, you can now use our services")
-            } else {
-                res.redirect("/terms?error=You succesfully withdrawn of the terms of condition, you cannot use our services anymore")
-            }
-        }).catch((err) => {
-            res.redirect(`/terms?error=${err}`)
-        })
+    cookie = req.cookies.user_session
+    cookie.acceptedterm = useracceptsTerm
+    res.cookie("user_session", result)
+    
+    if (cookie.acceptedterm) {
+        res.redirect("/terms?m=You succesfully accepted the terms of condition, you can now use our services")
+    } else {
+        res.redirect("/terms?error=You succesfully withdrawn of the terms of condition, you cannot use our services anymore")
+    }
 })
 
 app.get("/terms", (req, res) => {
     let message = req.query.m
     let error = req.query.error
-    if (req.cookies.user_session) {
-        userAcceptedTerms(req.cookies.user_session).then((result) => {
-            usedCodes(req.cookies.user_session, false).then((used_codes) => {
-                res.render("terms", {
-                    acceptedTerms: result,
-                    message: message,
-                    error: error,
-                    usedCodes: used_codes[0],
-                    usedPins : used_codes[1]
-                })
-            }).catch((err) => {
-                res.render("terms")
-            })
-        }).catch((err) => {
-            res.render("terms")
+    if (req.cookies.user_session.acceptterm) {
+        used_codes = usedCodes(req.cookies.user_session, false)
+        res.render("terms", {
+            acceptedTerms: true,
+            message: message,
+            error: error,
+            usedCodes: used_codes[0],
+            usedPins : used_codes[1]
         })
     } else {
         res.render("terms", {
