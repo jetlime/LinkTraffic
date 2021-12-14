@@ -619,7 +619,9 @@ app.post("/terms", (req, res) => {
         res.status(400)
     }
     cookie = req.cookies.user_session
+    console.log(cookie)
     cookie.acceptedterm = useracceptsTerm
+    console.log(cookie)
     res.cookie("user_session", result)
     
     if (cookie.acceptedterm) {
