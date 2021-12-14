@@ -249,26 +249,19 @@ app.get("/", (req, res) => {
         failure = false
     }
     if (req.cookies.user_session) {
-        usedCodes(req.cookies.user_session, false).then((result) => {
-            if (result) {
-                res.render("home", {
-                    failure: failure,
-                    message: error,
-                    usedCodes: result
-                })
-            } else {
-                res.render("home", {
-                    failure: failure,
-                    message: error
-                })
-            }
-        }).catch((err) => {
+        result = usedCodes(req.cookies.user_session, false)
+        if (result) {
             res.render("home", {
-                failure: true,
-                message: err,
+                failure: failure,
+                message: error,
+                usedCodes: result
             })
-        })
-
+        } else {
+            res.render("home", {
+                failure: failure,
+                message: error
+            })
+        }
     } else {
         let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
         console.log(ip)
