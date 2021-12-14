@@ -58,16 +58,12 @@ async function codeCreation() {
 }
 
 // checking if user has accepted the terms of agreement
-async function termsChecker(cookie) {
-    return Cookie.findOne({ _id: cookie }).then((result) => {
-        if (result.acceptedterm) {
-            return true;
-        } else {
-            return false;
-        }
-    }).catch((err) => {
+function termsChecker(cookie) {
+    if (cookie.acceptedterm) {
+        return true;
+    } else {
         return false;
-    })
+    }
 }
 
 async function usedCodes(cookie, renew) {
@@ -180,38 +176,38 @@ app.post("/trackinglink", async (req, res) => {
         res.redirect(`/?error=${link} is not considered to be a valid link`)
     }
     if (req.cookies.user_session) {
-        termsChecker(req.cookies.user_session).then((termsAccepted) => {
-            if (termsAccepted) {
-                codeCreation().then((result) => {
-                    let code = result
-                    let sharedLink = `https://linktraffic.herokuapp.com//redirect/${code}`
-                    const newLink = new Link({
-                        link: link,
-                        link_to_share: sharedLink,
-                        code: code,
-                        pin: pin
-                    })
-                    console.log(newLink)
-                    newLink.save()
-                        .then((result) => {
-                            console.log(result)
-                            if (link.match(link_regex)) {
-                                res.redirect(`/linkresult/${code}?pin=${pin}`)
-                            } else {
-                                res.redirect("/error=linknotvalid")
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                        })
+        termsAccepted = termsChecker(req.cookies.user_session)
+        if (termsAccepted) {
+            codeCreation().then((result) => {
+                let code = result
+                let sharedLink = `https://linktraffic.herokuapp.com//redirect/${code}`
+                const newLink = new Link({
+                    link: link,
+                    link_to_share: sharedLink,
+                    code: code,
+                    pin: pin
                 })
+                console.log(newLink)
+                newLink.save()
+                    .then((result) => {
+                        console.log(result)
+                        if (link.match(link_regex)) {
+                            res.redirect(`/linkresult/${code}?pin=${pin}`)
+                        } else {
+                            res.redirect("/error=linknotvalid")
+                        }
+                    })
                     .catch((err) => {
                         console.log(err)
                     })
-            } else {
-                res.redirect(`/?error=In order to use our services you are kindly asked to accept our terms of services, please accept them in the Terms of Service section of this website`)
-            }
-        })
+            })
+                .catch((err) => {
+                    console.log(err)
+                })
+        } else {
+            res.redirect(`/?error=In order to use our services you are kindly asked to accept our terms of services, please accept them in the Terms of Service section of this website`)
+        }
+
     } else {
         res.redirect(`/?error=An error has occured, it seems that you turned off cookies, this site is not usable without cookies. Thanks for your understanding`)
     }
@@ -222,15 +218,12 @@ app.post("/trackingcode", (req, res) => {
     let pin = parseInt(req.body.pin);
     let code = parseInt(req.body.trcode);
     if (code & pin) {
-        termsChecker(req.cookies.user_session).then((result) => {
-            if (result) {
-                res.redirect(`/linkresult/${code}?pin=${pin}`)
-            } else {
-                res.redirect(`/?error=In order to use our services you are kindly asked to accept our terms of services, please accept them in the Terms of Service section of this website`)
-            }
-        }).catch((err) => {
-            res.redirect(`/?error=An unexpected error occured, please try again later`)
-        })
+        result = termsChecker(req.cookies.user_session) 
+        if (result) {
+            res.redirect(`/linkresult/${code}?pin=${pin}`)
+        } else {
+            res.redirect(`/?error=In order to use our services you are kindly asked to accept our terms of services, please accept them in the Terms of Service section of this website`)
+        }
     } else {
         res.redirect(`/?error=An unexpected error occured, please try again later`)
     }
