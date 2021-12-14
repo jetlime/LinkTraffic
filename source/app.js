@@ -72,14 +72,14 @@ async function termsChecker(cookie) {
 
 async function usedCodes(cookie, renew) {
     if (renew) {
-        myCache.set('usedCodes', result.usedcodes)
-        return result.used_codes
+        myCache.set('usedCodes', cookie.usedcodes)
+        return cookie.used_codes
     } else {
         if (myCache.get('usedCodes') != null) {
             return myCache.get('usedCodes')
         } else {
-            myCache.set('usedCodes', result.used_codes)
-            return result.used_codes
+            myCache.set('usedCodes', cookie.used_codes)
+            return cookie.used_codes
         }
     }
 }
