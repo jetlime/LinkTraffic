@@ -619,10 +619,9 @@ app.post("/terms", (req, res) => {
         res.status(400)
     }
     cookie = req.cookies.user_session
-    console.log(cookie)
     cookie.acceptedterm = useracceptsTerm
-    console.log(cookie)
-    res.cookie("user_session", result)
+
+    res.cookie("user_session", cookie)
     
     if (cookie.acceptedterm) {
         res.redirect("/terms?m=You succesfully accepted the terms of condition, you can now use our services")
