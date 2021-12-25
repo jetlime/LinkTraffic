@@ -192,7 +192,7 @@ app.post("/trackinglink", async (req, res) => {
             if (termsAccepted) {
                 codeCreation().then((result) => {
                     let code = result
-                    let sharedLink = `http:/linktraffic.me/redirect/${code}`
+                    let sharedLink = `http://linktraffic.me/redirect/${code}`
                     const newLink = new Link({
                         link: link,
                         link_to_share: sharedLink,
