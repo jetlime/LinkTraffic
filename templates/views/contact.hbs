@@ -15,7 +15,7 @@
     <script>
     $(document).ready(function(){
         var image={};
-        fetch('https://localhost:3000/get-captcha')
+        fetch('http:/linktraffic.me/get-captcha')
         .then(response => response.json())
         .then(data => { 
             var imgobj = document.getElementById("captcha-image")
